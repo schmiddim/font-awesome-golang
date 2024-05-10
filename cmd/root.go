@@ -31,11 +31,6 @@ var generateCmd = &cobra.Command{
 			log.Fatal(err)
 		}
 
-		//list := generated.Icons
-		//for item := range list {
-		//	fmt.Println(list[item])
-		//}
-
 	},
 }
 
@@ -44,7 +39,7 @@ var testCmd = &cobra.Command{
 	Short: "A brief description of your test command",
 	Long:  `A longer description of your test command`,
 	Run: func(cmd *cobra.Command, args []string) {
-		s := lib.GetIconForString("test")
+		s := lib.GetIconForString("Read")
 		fmt.Println(s)
 	},
 }
