@@ -1,27 +1,11 @@
+/*
+Copyright © 2024 NAME HERE <EMAIL ADDRESS>
+
+*/
 package main
 
-import (
-	"fmt"
-	fa "github.com/schmiddim/font-awesome-golang/download"
-	"github.com/schmiddim/font-awesome-golang/generated"
-	"log"
-)
+import "github.com/schmiddim/font-awesome-golang/cmd"
 
 func main() {
-	f := fa.FontAwesome{}
-	err := f.FetchMedataJson("5.x")
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	f.ParseMetaData()
-	err = f.GenerateGoFileFromIcons()
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(err)
-	list := generated.Icons
-	for item := range list {
-		fmt.Println(list[item])
-	}
+	cmd.Execute()
 }
