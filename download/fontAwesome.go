@@ -80,13 +80,51 @@ func (fa *FontAwesome) ParseMetaData() {
 		panic(err)
 	}
 
-	for iconName := range fa.Icons {
-		fmt.Println(iconName)
-	}
-
 }
 
-// Move to other lib
-func (fa *FontAwesome) GetIcon(name string) Icon {
-	return fa.Icons[name]
+func (fa *FontAwesome) GenerateGoFileFromIcons() error {
+	// Set the filename to the desired path
+	filename := "generated/iconList.go"
+
+	// Open file for writing
+	file, err := os.Create(filename)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	// Write package declaration
+	_, err = file.WriteString("package generated\n\n")
+	if err != nil {
+		return err
+	}
+
+	// Write import declaration
+	_, err = file.WriteString("import \"github.com/schmiddim/font-awesome-golang/download\"\n\n")
+	if err != nil {
+		return err
+	}
+
+	// Write variable declaration for the array
+	_, err = file.WriteString("var Icons = []download.Icon{\n")
+	if err != nil {
+		return err
+	}
+
+	// Write each icon as an element of the array
+	for _, icon := range fa.Icons {
+		_, err = file.WriteString(fmt.Sprintf("\t{Changes: %#v, Ligatures: %#v, Search: %#v, Styles: %#v, Unicode: %#v, Label: %#v, Voted: %#v, Free: %#v},\n",
+			icon.Changes, icon.Ligatures, icon.Search, icon.Styles, icon.Unicode, icon.Label, icon.Voted, icon.Free))
+		if err != nil {
+			return err
+		}
+	}
+
+	// Write closing bracket
+	_, err = file.WriteString("}\n")
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
