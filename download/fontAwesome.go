@@ -15,6 +15,7 @@ const (
 )
 
 type Icon struct {
+	Name      string
 	Changes   []string            `json:"changes"`
 	Ligatures []string            `json:"ligatures"`
 	Search    map[string][]string `json:"search"`
@@ -112,9 +113,9 @@ func (fa *FontAwesome) GenerateGoFileFromIcons() error {
 	}
 
 	// Write each icon as an element of the array
-	for _, icon := range fa.Icons {
-		_, err = file.WriteString(fmt.Sprintf("\t{Changes: %#v, Ligatures: %#v, Search: %#v, Styles: %#v, Unicode: %#v, Label: %#v, Voted: %#v, Free: %#v},\n",
-			icon.Changes, icon.Ligatures, icon.Search, icon.Styles, icon.Unicode, icon.Label, icon.Voted, icon.Free))
+	for key, icon := range fa.Icons {
+		_, err = file.WriteString(fmt.Sprintf("\t{Changes: %#v, Ligatures: %#v, Search: %#v, Styles: %#v, Unicode: %#v, Label: %#v, Voted: %#v, Free: %#v, Name: %#v},\n",
+			icon.Changes, icon.Ligatures, icon.Search, icon.Styles, icon.Unicode, icon.Label, icon.Voted, icon.Free, key))
 		if err != nil {
 			return err
 		}

@@ -6,7 +6,7 @@ package cmd
 import (
 	"fmt"
 	fa "github.com/schmiddim/font-awesome-golang/download"
-	"github.com/schmiddim/font-awesome-golang/generated"
+	"github.com/schmiddim/font-awesome-golang/lib"
 	"log"
 	"os"
 
@@ -30,11 +30,11 @@ var generateCmd = &cobra.Command{
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Println(err)
-		list := generated.Icons
-		for item := range list {
-			fmt.Println(list[item])
-		}
+
+		//list := generated.Icons
+		//for item := range list {
+		//	fmt.Println(list[item])
+		//}
 
 	},
 }
@@ -44,8 +44,8 @@ var testCmd = &cobra.Command{
 	Short: "A brief description of your test command",
 	Long:  `A longer description of your test command`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("test command called")
-
+		s := lib.GetIconForString("test")
+		fmt.Println(s)
 	},
 }
 
